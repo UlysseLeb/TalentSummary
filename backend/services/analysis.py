@@ -2,8 +2,7 @@ import json
 import os
 import re
 
-
-from groq import Groq
+import requests
 
 
 PROMPT_TEMPLATE = """Tu es un assistant d'aide à la décision de recrutement pour managers.
@@ -74,14 +73,19 @@ async def analyze_transcript(transcription: str) -> dict:
     model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
     prompt = PROMPT_TEMPLATE.format(transcription=transcription)
 
-    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-    response = client.chat.completions.create(
-        model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.1,
+    response = requests.post(
+        "https://api.groq.com/openai/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {os.getenv('GROQ_API_KEY')}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.1,
+        },
+        timeout=60,
     )
-
-
-    raw = response.choices[0].message.content
-
+    response.raise_for_status()
+    raw = response.json()["choices"][0]["message"]["content"]
     return _parse_llm_response(raw)
