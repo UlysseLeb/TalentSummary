@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TalentSummary</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🎯</span>
+    <h1>TalentSummary</h1>
+    <p class="tagline">Entretiens → Décisions en 2 min</p>
+  </div>
+
+  <!-- État 1 : upload -->
+  <div id="state-upload" class="state">
+    <div id="drop-zone" class="drop-zone">
+      <div class="drop-icon">🎙️</div>
+      <p class="drop-label">Déposez votre fichier audio ici</p>
+      <p class="drop-formats">MP3, WAV — max 25 MB</p>
+      <label class="btn btn-primary" for="file-input">Choisir un fichier</label>
+      <input type="file" id="file-input" accept=".mp3,.wav,.m4a,.flac,.ogg" hidden />
+    </div>
+    <div id="file-selected" class="file-selected hidden">
+      <span id="file-name" class="file-name"></span>
+      <span id="file-size" class="file-size"></span>
+    </div>
+    <button id="btn-analyze" class="btn btn-success hidden" disabled>
+      Analyser l'entretien
+    </button>
+    <div id="upload-error" class="error-msg hidden"></div>
+  </div>
+
+  <!-- État 2 : traitement -->
+  <div id="state-processing" class="state hidden">
+    <div class="spinner"></div>
+    <p id="processing-msg" class="processing-msg">Transcription en cours...</p>
+    <p class="processing-hint">Ne fermez pas cette fenêtre (30–60 secondes)</p>
+    <div class="progress-steps">
+      <div id="step-transcription" class="step step-active">1. Transcription audio</div>
+      <div id="step-analysis" class="step">2. Analyse IA</div>
+      <div id="step-report" class="step">3. Génération du rapport</div>
+    </div>
+  </div>
+
+  <!-- État 3 : résultats -->
+  <div id="state-result" class="state hidden">
+    <div class="result-header">
+      <div id="score-badge" class="score-badge"></div>
+      <div id="verdict-badge" class="verdict-badge"></div>
+    </div>
+
+    <div class="candidate-info">
+      <span id="candidate-name" class="candidate-name"></span>
+      <span id="candidate-role" class="candidate-role"></span>
+    </div>
+
+    <div class="section">
+      <h3>Résumé exécutif</h3>
+      <p id="resume" class="resume-text"></p>
+    </div>
+
+    <div class="section">
+      <h3>Justification</h3>
+      <p id="justification" class="justification-text"></p>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="points-forts-content">
+        ✅ Points forts <span class="chevron">▼</span>
+      </button>
+      <ul id="points-forts-content" class="collapsible-content list-green"></ul>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="points-amelioration-content">
+        ⚠️ Points d'amélioration <span class="chevron">▼</span>
+      </button>
+      <ul id="points-amelioration-content" class="collapsible-content list-orange"></ul>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="competences-content">
+        🛠️ Compétences <span class="chevron">▼</span>
+      </button>
+      <div id="competences-content" class="collapsible-content">
+        <div class="competences-group">
+          <p class="comp-label">Techniques</p>
+          <div id="comp-techniques" class="tags"></div>
+        </div>
+        <div class="competences-group">
+          <p class="comp-label">Comportementales</p>
+          <div id="comp-comportementales" class="tags"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="questions-content">
+        ❓ Questions recommandées <span class="chevron">▼</span>
+      </button>
+      <ul id="questions-content" class="collapsible-content list-blue"></ul>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="transcription-content">
+        📝 Transcription complète <span class="chevron">▼</span>
+      </button>
+      <div id="transcription-content" class="collapsible-content transcription-box hidden"></div>
+    </div>
+
+    <button id="btn-reset" class="btn btn-secondary">Analyser un autre entretien</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
