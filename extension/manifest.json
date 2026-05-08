@@ -5,7 +5,7 @@
   "description": "Analysez vos entretiens en quelques secondes. Upload audio → transcription → rapport IA structuré.",
   "permissions": [],
   "host_permissions": [
-    "http://localhost:8000/*"
+    "https://talentsummary-production.up.railway.app/*"
   ],
   "action": {
     "default_popup": "popup/popup.html",

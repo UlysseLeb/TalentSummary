@@ -10,7 +10,7 @@
   <div class="header">
     <span class="logo">🎯</span>
     <h1>TalentSummary</h1>
-    <p class="tagline">Entretiens → Décisions en 2 min</p>
+    <p class="tagline">Aide à la décision recrutement</p>
   </div>
 
   <!-- État 1 : upload -->
@@ -46,68 +46,100 @@
 
   <!-- État 3 : résultats -->
   <div id="state-result" class="state hidden">
+
     <div class="result-header">
       <div id="score-badge" class="score-badge"></div>
-      <div id="verdict-badge" class="verdict-badge"></div>
-    </div>
-
-    <div class="candidate-info">
-      <span id="candidate-name" class="candidate-name"></span>
-      <span id="candidate-role" class="candidate-role"></span>
+      <div class="result-header-info">
+        <span id="candidate-name" class="candidate-name"></span>
+        <span id="candidate-role" class="candidate-role"></span>
+        <div id="verdict-badge" class="verdict-badge"></div>
+      </div>
     </div>
 
     <div class="section">
-      <h3>Résumé exécutif</h3>
+      <h3>Résumé pour le manager</h3>
       <p id="resume" class="resume-text"></p>
     </div>
 
     <div class="section">
-      <h3>Justification</h3>
+      <h3>Justification de la décision</h3>
       <p id="justification" class="justification-text"></p>
     </div>
 
+    <!-- Potentiel -->
     <div class="collapsible-section">
-      <button class="collapsible-btn" data-target="points-forts-content">
-        ✅ Points forts <span class="chevron">▼</span>
+      <button class="collapsible-btn" data-target="potentiel-content">
+        🟢 Potentiel <span class="chevron">▼</span>
       </button>
-      <ul id="points-forts-content" class="collapsible-content list-green"></ul>
-    </div>
-
-    <div class="collapsible-section">
-      <button class="collapsible-btn" data-target="points-amelioration-content">
-        ⚠️ Points d'amélioration <span class="chevron">▼</span>
-      </button>
-      <ul id="points-amelioration-content" class="collapsible-content list-orange"></ul>
-    </div>
-
-    <div class="collapsible-section">
-      <button class="collapsible-btn" data-target="competences-content">
-        🛠️ Compétences <span class="chevron">▼</span>
-      </button>
-      <div id="competences-content" class="collapsible-content">
-        <div class="competences-group">
-          <p class="comp-label">Techniques</p>
-          <div id="comp-techniques" class="tags"></div>
-        </div>
-        <div class="competences-group">
-          <p class="comp-label">Comportementales</p>
-          <div id="comp-comportementales" class="tags"></div>
+      <div id="potentiel-content" class="collapsible-content">
+        <div class="potentiel-grid">
+          <div class="potentiel-item">
+            <p class="potentiel-label">Capacité d'évolution</p>
+            <p id="pot-evolution" class="potentiel-value"></p>
+          </div>
+          <div class="potentiel-item">
+            <p class="potentiel-label">Autonomie</p>
+            <p id="pot-autonomie" class="potentiel-value"></p>
+          </div>
+          <div class="potentiel-item">
+            <p class="potentiel-label">Adaptabilité</p>
+            <p id="pot-adaptabilite" class="potentiel-value"></p>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- Risques -->
     <div class="collapsible-section">
-      <button class="collapsible-btn" data-target="questions-content">
-        ❓ Questions recommandées <span class="chevron">▼</span>
+      <button class="collapsible-btn" data-target="risques-content">
+        🔴 Risques <span class="chevron">▼</span>
       </button>
-      <ul id="questions-content" class="collapsible-content list-blue"></ul>
+      <div id="risques-content" class="collapsible-content">
+        <div id="risques-list"></div>
+      </div>
     </div>
 
+    <!-- Impact business -->
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="impact-content">
+        💰 Impact business <span class="chevron">▼</span>
+      </button>
+      <div id="impact-content" class="collapsible-content">
+        <div class="impact-grid">
+          <div class="impact-item">
+            <p class="impact-label">⏱ Temps d'onboarding</p>
+            <p id="impact-onboarding" class="impact-value"></p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-label">📚 Coût formation</p>
+            <p id="impact-formation" class="impact-value"></p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-label">⚡ Valeur pour l'équipe</p>
+            <p id="impact-valeur" class="impact-value"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommandations -->
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="reco-content">
+        📚 Recommandations <span class="chevron">▼</span>
+      </button>
+      <div id="reco-content" class="collapsible-content">
+        <div id="reco-formations" class="reco-group"></div>
+        <div id="reco-mentoring" class="reco-group"></div>
+        <div id="reco-stack" class="reco-group"></div>
+      </div>
+    </div>
+
+    <!-- Transcription -->
     <div class="collapsible-section">
       <button class="collapsible-btn" data-target="transcription-content">
         📝 Transcription complète <span class="chevron">▼</span>
       </button>
-      <div id="transcription-content" class="collapsible-content transcription-box hidden"></div>
+      <div id="transcription-content" class="collapsible-content transcription-box"></div>
     </div>
 
     <button id="btn-reset" class="btn btn-secondary">Analyser un autre entretien</button>

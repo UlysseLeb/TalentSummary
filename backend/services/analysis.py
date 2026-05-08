@@ -4,7 +4,7 @@ import re
 
 import ollama
 
-PROMPT_TEMPLATE = """Tu es un expert en recrutement et en analyse d'entretiens.
+PROMPT_TEMPLATE = """Tu es un assistant d'aide à la décision de recrutement pour managers.
 Analyse la transcription d'entretien suivante et retourne UNIQUEMENT un JSON valide \
 (sans markdown, sans texte avant ou après) avec exactement cette structure :
 
@@ -12,14 +12,31 @@ Analyse la transcription d'entretien suivante et retourne UNIQUEMENT un JSON val
   "nom_candidat": "string ou Non mentionné",
   "poste_vise": "string ou Non mentionné",
   "score_global": <entier entre 1 et 10>,
-  "resume_executif": "2-3 phrases synthétisant le profil",
-  "points_forts": ["string", "string", "string"],
-  "points_amelioration": ["string", "string"],
-  "competences_techniques": ["string"],
-  "competences_comportementales": ["string"],
-  "questions_recommandees": ["string", "string", "string"],
-  "verdict": "À retenir | À surveiller | Non retenu",
-  "justification_verdict": "1-2 phrases"
+  "verdict": "À recruter | À évaluer | Ne pas recruter",
+  "justification_verdict": "1-2 phrases en termes de performance et rentabilité",
+  "resume_executif": "2-3 phrases orientées impact business pour un manager",
+  "potentiel": {{
+    "capacite_evolution": "évaluation 1-2 phrases",
+    "autonomie": "évaluation 1-2 phrases",
+    "adaptabilite": "évaluation 1-2 phrases"
+  }},
+  "risques": [
+    {{
+      "titre": "string court",
+      "description": "impact concret pour l'équipe ou le projet",
+      "niveau": "faible | moyen | élevé"
+    }}
+  ],
+  "impact_business": {{
+    "temps_onboarding": "estimation en semaines ou mois avec justification",
+    "cout_formation": "estimation et domaines concernés",
+    "valeur_equipe": "ce que ce candidat apporte concrètement à l'équipe"
+  }},
+  "recommandations": {{
+    "formations": ["string"],
+    "mentoring": ["string"],
+    "stack_a_renforcer": ["string"]
+  }}
 }}
 
 Transcription :
