@@ -11,7 +11,9 @@ load_dotenv()
 from services.analysis import analyze_transcript
 from services.transcription import transcribe_audio
 
-app = FastAPI(title="TalentSummary API", version="1.0.0")
+APP_VERSION = "1.0.0"
+
+app = FastAPI(title="TalentSummary API", version=APP_VERSION)
 
 app.add_middleware(
     CORSMiddleware,
@@ -26,7 +28,7 @@ ALLOWED_EXTENSIONS = {".mp3", ".wav", ".m4a", ".flac", ".ogg"}
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "whisper_model": os.getenv("WHISPER_MODEL", "base")}
+    return {"status": "ok", "version": APP_VERSION, "whisper_model": os.getenv("WHISPER_MODEL", "base")}
 
 
 @app.post("/process")
