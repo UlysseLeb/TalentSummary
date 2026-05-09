@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>TalentSummary — Enregistrement</title>
+  <link rel="stylesheet" href="../popup/popup.css" />
+  <style>
+    body { max-width: 560px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">🎯</span>
+    <h1>TalentSummary</h1>
+    <p class="tagline">v1.0.0 — Aide à la décision recrutement</p>
+  </div>
+
+  <!-- État 1 : enregistrement -->
+  <div id="state-upload" class="state">
+    <div class="record-zone">
+      <div id="record-icon" class="record-icon">🎙️</div>
+      <p id="record-label" class="record-label">Prêt à enregistrer</p>
+      <p class="record-hint">Appuyez sur Record au début de l'entretien</p>
+      <div id="record-timer" class="record-timer hidden">00:00</div>
+    </div>
+    <div class="record-controls">
+      <button id="btn-record" class="btn btn-record">⏺ Enregistrer</button>
+      <button id="btn-stop" class="btn btn-stop hidden">⏹ Arrêter</button>
+    </div>
+    <button id="btn-analyze" class="btn btn-success hidden" disabled>
+      Analyser l'entretien
+    </button>
+    <div id="upload-error" class="error-msg hidden"></div>
+  </div>
+
+  <!-- État 2 : traitement -->
+  <div id="state-processing" class="state hidden">
+    <div class="spinner"></div>
+    <p id="processing-msg" class="processing-msg">Transcription en cours...</p>
+    <p class="processing-hint">Ne fermez pas cet onglet (30–60 secondes)</p>
+    <div class="progress-steps">
+      <div id="step-transcription" class="step step-active">1. Transcription audio</div>
+      <div id="step-analysis" class="step">2. Analyse IA</div>
+      <div id="step-report" class="step">3. Génération du rapport</div>
+    </div>
+  </div>
+
+  <!-- État 3 : résultats -->
+  <div id="state-result" class="state hidden">
+    <div class="result-header">
+      <div id="score-badge" class="score-badge"></div>
+      <div class="result-header-info">
+        <span id="candidate-name" class="candidate-name"></span>
+        <span id="candidate-role" class="candidate-role"></span>
+        <div id="verdict-badge" class="verdict-badge"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Résumé pour le manager</h3>
+      <p id="resume" class="resume-text"></p>
+    </div>
+
+    <div class="section">
+      <h3>Justification de la décision</h3>
+      <p id="justification" class="justification-text"></p>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="potentiel-content">
+        🟢 Potentiel <span class="chevron">▼</span>
+      </button>
+      <div id="potentiel-content" class="collapsible-content">
+        <div class="potentiel-grid">
+          <div class="potentiel-item">
+            <p class="potentiel-label">Capacité d'évolution</p>
+            <p id="pot-evolution" class="potentiel-value"></p>
+          </div>
+          <div class="potentiel-item">
+            <p class="potentiel-label">Autonomie</p>
+            <p id="pot-autonomie" class="potentiel-value"></p>
+          </div>
+          <div class="potentiel-item">
+            <p class="potentiel-label">Adaptabilité</p>
+            <p id="pot-adaptabilite" class="potentiel-value"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="risques-content">
+        🔴 Risques <span class="chevron">▼</span>
+      </button>
+      <div id="risques-content" class="collapsible-content">
+        <div id="risques-list"></div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="impact-content">
+        💰 Impact business <span class="chevron">▼</span>
+      </button>
+      <div id="impact-content" class="collapsible-content">
+        <div class="impact-grid">
+          <div class="impact-item">
+            <p class="impact-label">⏱ Temps d'onboarding</p>
+            <p id="impact-onboarding" class="impact-value"></p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-label">📚 Coût formation</p>
+            <p id="impact-formation" class="impact-value"></p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-label">⚡ Valeur pour l'équipe</p>
+            <p id="impact-valeur" class="impact-value"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="reco-content">
+        📚 Recommandations <span class="chevron">▼</span>
+      </button>
+      <div id="reco-content" class="collapsible-content">
+        <div id="reco-formations" class="reco-group"></div>
+        <div id="reco-mentoring" class="reco-group"></div>
+        <div id="reco-stack" class="reco-group"></div>
+      </div>
+    </div>
+
+    <div class="collapsible-section">
+      <button class="collapsible-btn" data-target="transcription-content">
+        📝 Transcription complète <span class="chevron">▼</span>
+      </button>
+      <div id="transcription-content" class="collapsible-content transcription-box"></div>
+    </div>
+
+    <button id="btn-reset" class="btn btn-secondary">Analyser un autre entretien</button>
+  </div>
+
+  <script src="recording.js"></script>
+</body>
+</html>

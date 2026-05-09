@@ -3,7 +3,7 @@
   "name": "TalentSummary — InterviewIQ",
   "version": "1.0.0",
   "description": "Analysez vos entretiens en quelques secondes. Upload audio → transcription → rapport IA structuré.",
-  "permissions": [],
+  "permissions": ["tabs"],
   "host_permissions": [
     "https://talentsummary-production.up.railway.app/*"
   ],
