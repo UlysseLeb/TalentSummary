@@ -2,7 +2,7 @@ import os
 import time
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -32,7 +32,7 @@ async def health():
 
 
 @app.post("/process")
-async def process_interview(audio: UploadFile = File(...)):
+async def process_interview(audio: UploadFile = File(...), job_description: str = Form(default="")):
     ext = "." + audio.filename.rsplit(".", 1)[-1].lower() if audio.filename and "." in audio.filename else ""
     if ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(
@@ -57,7 +57,7 @@ async def process_interview(audio: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Erreur transcription : {str(e)}")
 
     try:
-        rapport = await analyze_transcript(transcription)
+        rapport = await analyze_transcript(transcription, job_description)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur analyse IA : {str(e)}")
 

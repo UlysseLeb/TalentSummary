@@ -6,7 +6,7 @@ import requests
 
 
 PROMPT_TEMPLATE = """Tu es un assistant d'aide à la décision de recrutement pour managers.
-Analyse la transcription d'entretien suivante et retourne UNIQUEMENT un JSON valide \
+Analyse la transcription d'entretien suivante{job_context} et retourne UNIQUEMENT un JSON valide \
 (sans markdown, sans texte avant ou après) avec exactement cette structure :
 
 {{
@@ -41,7 +41,8 @@ Analyse la transcription d'entretien suivante et retourne UNIQUEMENT un JSON val
 }}
 
 Transcription :
-{transcription}"""
+{transcription}
+{job_section}"""
 
 
 def _parse_llm_response(raw: str) -> dict:
@@ -69,9 +70,17 @@ def _parse_llm_response(raw: str) -> dict:
     raise ValueError(f"Impossible de parser la réponse du modèle en JSON : {raw[:200]}")
 
 
-async def analyze_transcript(transcription: str) -> dict:
+async def analyze_transcript(transcription: str, job_description: str = "") -> dict:
     model = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-    prompt = PROMPT_TEMPLATE.format(transcription=transcription)
+
+    job_context = ", en la comparant avec la fiche de poste fournie" if job_description else ""
+    job_section = f"\n\nFiche de poste :\n{job_description}" if job_description else ""
+
+    prompt = PROMPT_TEMPLATE.format(
+        transcription=transcription,
+        job_context=job_context,
+        job_section=job_section,
+    )
 
     response = requests.post(
         "https://api.groq.com/openai/v1/chat/completions",

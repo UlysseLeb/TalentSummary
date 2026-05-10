@@ -43,6 +43,49 @@ body {
 .state { padding: 20px; }
 .hidden { display: none !important; }
 
+/* ── Fiche de poste ── */
+.job-section {
+  background: white;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.job-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.job-optional {
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.job-textarea {
+  width: 100%;
+  min-height: 90px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #334155;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+}
+
+.job-textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+}
+
+.job-textarea::placeholder { color: #94a3b8; }
+
 /* ── Record state ── */
 .record-zone {
   border-radius: 12px;

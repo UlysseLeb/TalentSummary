@@ -102,6 +102,8 @@ btnAnalyze.addEventListener("click", async () => {
 
   const formData = new FormData();
   formData.append("audio", recordingBlob, "entretien.webm");
+  const jobDescription = document.getElementById("job-description").value.trim();
+  if (jobDescription) formData.append("job_description", jobDescription);
 
   try {
     const response = await fetch(`${API_URL}/process`, { method: "POST", body: formData });
